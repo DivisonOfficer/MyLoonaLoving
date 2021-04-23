@@ -12,6 +12,8 @@
         android:layout_height="match_parent">
 
         <androidx.viewpager2.widget.ViewPager2
+            android:onClick="mvExpantion"
+
             android:id="@+id/mv_thumb_pager"
             android:layout_width="0dp"
             android:layout_height="100dp"
