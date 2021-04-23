@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myloonaloving.adapter.AlbumViewpagerAdapter
 import com.example.myloonaloving.adapter.MvThumbViewpagerAdapter
 import com.example.myloonaloving.databinding.ActivityMainBinding
-import drawable.MusicVideoInfo
+import com.example.myloonaloving.MusicVideoInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
