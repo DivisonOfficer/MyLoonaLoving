@@ -1,48 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    app:cardCornerRadius="20dp">
+    >
+    <data>
 
-    <LinearLayout
+        <variable
+            name="isExpand"
+            type="boolean"
+            />
+    </data>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="20dp">
 
-        <ImageView
-            android:id="@+id/mv_thumb"
-
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="202dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/mv_thumb"
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
 
 
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/thumb_mv_whynot" />
+                android:scaleType="centerCrop" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black_overlay"
-            android:defaultFocusHighlightEnabled="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mv_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/black_overlay"
+                android:defaultFocusHighlightEnabled="true"
+                android:visibility="visible">
 
-            <TextView
-                android:id="@+id/mv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Why not?"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/mv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Why not?"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.158"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.cardview.widget.CardView>
+                <ImageButton
+                    android:id="@+id/mv_youtube_play_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.51"
+                    app:srcCompat="@drawable/ic_baseline_play_circle_filled_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
+

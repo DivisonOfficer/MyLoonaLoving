@@ -3,6 +3,7 @@ package com.example.myloonaloving
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -38,11 +39,7 @@ class MainActivity : BaseActivity() {
         val songThumbs = mutableListOf<Drawable>()
         songThumbs.add(resources.getDrawable(R.drawable.thumb_singing_1))
 
-        val mvInfo : MutableList<MusicVideoInfo> = mutableListOf()
-        mvInfo.add(MusicVideoInfo("Why Not?","0-snXdhDs1w"))
-        mvInfo.add(MusicVideoInfo("Star","zW-AIXAnLcE"))
-        mvInfo.add(MusicVideoInfo("Heart Attack","BVVfMFS3mgc"))
-        mvInfo.add(MusicVideoInfo("Egoist","UkY8HvgvBJ8"))
+
 
         bind.apply {
             mvThumbPager.adapter = MvThumbViewpagerAdapter(mvThumbs)
@@ -52,7 +49,11 @@ class MainActivity : BaseActivity() {
             albumViewpager.adapter = AlbumViewpagerAdapter(albumThumbs)
             albumViewpager.orientation = ViewPager2.ORIENTATION_VERTICAL
             albumViewpager.isUserInputEnabled = false
+            btMv.setOnClickListener{
+                startActivity(Intent(this@MainActivity,MvListActivity::class.java)
 
+                )
+            }
 
             songsViewpager.adapter = AlbumViewpagerAdapter(songThumbs)
             songsViewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -62,8 +63,7 @@ class MainActivity : BaseActivity() {
            // menuMv.translationY=-textviewMv.measuredHeight/2.toFloat()
             textviewAlbum.translationY=-textviewAlbum.measuredHeight/2.toFloat()
             textviewSongs.translationY=-textviewSongs.measuredHeight/2.toFloat()
-            textviewAlbum.alpha=0F
-            textviewSongs.alpha=0F
+
 
         }
         CoroutineScope(Dispatchers.IO).launch {
@@ -114,7 +114,9 @@ class MainActivity : BaseActivity() {
         valueAnimator.addUpdateListener {
             val animatedValue = valueAnimator.animatedValue as Int
             val layoutParams = v.layoutParams
+
             layoutParams.height = animatedValue
+
             v.layoutParams = layoutParams
 
         }
@@ -133,12 +135,12 @@ class MainActivity : BaseActivity() {
 
 
         if(expand_album) {
-           textOpen(bind.textviewAlbum)
-            if(expand_songs) textOff(bind.textviewSongs)
+           textOpen(bind.albumgoLayout)
+            if(expand_songs) textOff(bind.songsgoLayout)
             expand_songs=false
 
         }
-        else textOff(bind.textviewAlbum)
+        else textOff(bind.albumgoLayout)
         Log.d("mvExpantion", "function worked")
     }
     fun songsExpantion(v: View)
@@ -147,32 +149,33 @@ class MainActivity : BaseActivity() {
 
 
         if(expand_songs) {
-            textOpen(bind.textviewSongs)
-            if(expand_album) textOff(bind.textviewAlbum)
+            textOpen(bind.songsgoLayout)
+            if(expand_album) textOff(bind.albumgoLayout)
             expand_album=false
 
         }
-        else textOff(bind.textviewSongs)
+        else textOff(bind.songsgoLayout)
         Log.d("mvExpantion", "function worked")
     }
 
     fun textOpen(v: View)
     {
-        v.setVisibility(View.VISIBLE)
-        v.animate()
-            .translationY(v.measuredHeight/5.toFloat())
-            .alpha(1f)
-            .setDuration(300)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
+        val valueAnimator =
+            ValueAnimator.ofInt(0, 200)
+        valueAnimator.duration = 500L
+        valueAnimator.addUpdateListener {
+            val animatedValue = valueAnimator.animatedValue as Int
+            val layoutParams = v.layoutParams
 
-                }
-            })
+            layoutParams.height = animatedValue
+            v.layoutParams = layoutParams
+            v.alpha=animatedValue.toFloat()/200f
+        }
+        valueAnimator.start()
     }
     fun textOff(v: View)
     {
-        v.animate()
+        /*v.animate()
             .alpha(0f)
             .translationY(0f)
             .setDuration(300)
@@ -187,6 +190,18 @@ class MainActivity : BaseActivity() {
                     })
 
                 }
-            })
+            })*/
+        val valueAnimator =
+            ValueAnimator.ofInt(200, 0)
+        valueAnimator.duration = 500L
+        valueAnimator.addUpdateListener {
+            val animatedValue = valueAnimator.animatedValue as Int
+            val layoutParams = v.layoutParams
+
+            layoutParams.height = animatedValue
+            v.layoutParams = layoutParams
+            v.alpha=animatedValue.toFloat()/200f
+        }
+        valueAnimator.start()
     }
 }
