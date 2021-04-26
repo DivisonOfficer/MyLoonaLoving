@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
+
+val MEMBER_NAME =mutableListOf(
+    "희진", "현진" ,"올리비아 혜", "츄","김립","고원","하슬","비비","이브","최리","진솔","여진")
+
 abstract class BaseActivity : AppCompatActivity() {
     protected inline fun <reified T : ViewDataBinding> binding(resId: Int) : Lazy<T> =
         lazy{ DataBindingUtil.setContentView<T>(this, resId)}

@@ -3,6 +3,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="GoogleApiKey">AIzaSyCTYx4VWlyvIOS2r94_hbzY_jIrTWV-tH8</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

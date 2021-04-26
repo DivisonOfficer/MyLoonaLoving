@@ -24,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
 import java.net.URL
 
-class MvListAdapter() : RecyclerView.Adapter<MvListAdapter.ViewHolder>(){
+class MvListAdapter(val playYouTube:(videoId : String, lyricPath : String) -> Unit) : RecyclerView.Adapter<MvListAdapter.ViewHolder>(){
     var mvinfos: MutableList<MusicVideoInfo> = mutableListOf()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         CoroutineScope(Dispatchers.IO).run {
@@ -33,7 +33,7 @@ class MvListAdapter() : RecyclerView.Adapter<MvListAdapter.ViewHolder>(){
                 "${"https://i.ytimg.com/vi/" + mvinfos[position].youtubeCode + "/hq720.jpg"} loading"
             )
 
-            holder.bind(URL("https://i.ytimg.com/vi/" + mvinfos[position].youtubeCode + "/hq720.jpg"), mvinfos[position].videoName)
+            holder.bind(mvinfos[position])
         }
 
     }
@@ -70,8 +70,12 @@ class MvListAdapter() : RecyclerView.Adapter<MvListAdapter.ViewHolder>(){
     inner class ViewHolder(private val binding: ItemMvPlayBinding, val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(image: URL, name:String) {
+        fun bind(info : MusicVideoInfo) {
+            val src = info.youtubeCode
+            val name = info.videoName
+            val lyPath = info.lyricPath
             binding.isExpand=false
+            val image : URL = URL("https://i.ytimg.com/vi/" + src + "/hq720.jpg")
             binding.mvThumb.setOnClickListener {
                 binding.isExpand=!binding.isExpand
                 lateinit var valueAnimator : ValueAnimator
@@ -96,6 +100,9 @@ class MvListAdapter() : RecyclerView.Adapter<MvListAdapter.ViewHolder>(){
             }
             imageDownloader(binding.mvThumb).execute(image)
             binding.mvName.text=name
+            binding.mvYoutubePlayBt.setOnClickListener{
+                playYouTube(src,lyPath)
+            }
         }
     }
     fun add(info:MusicVideoInfo, position:Int){

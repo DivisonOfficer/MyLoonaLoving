@@ -175,22 +175,7 @@ class MainActivity : BaseActivity() {
     }
     fun textOff(v: View)
     {
-        /*v.animate()
-            .alpha(0f)
-            .translationY(0f)
-            .setDuration(300)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    v.animate().translationY(-200F).setDuration(300).setListener(object : AnimatorListenerAdapter(){
-                        override fun onAnimationEnd(animation: Animator) {
-                            super.onAnimationEnd(animation)
-                            v.setVisibility(View.GONE)
-                        }
-                    })
 
-                }
-            })*/
         val valueAnimator =
             ValueAnimator.ofInt(200, 0)
         valueAnimator.duration = 500L
