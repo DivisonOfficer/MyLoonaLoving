@@ -1,11 +1,9 @@
 package com.example.myloonaloving
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.OvershootInterpolator
 import com.example.myloonaloving.adapter.MvListAdapter
 import com.example.myloonaloving.databinding.ActivityMvListBinding
 
@@ -18,7 +16,7 @@ class MvListActivity : BaseActivity() {
         setContentView(R.layout.activity_mv_list)
         Log.d("MvListActivity","Activity Run")
         val mvInfo : MutableList<MusicVideoInfo> = mutableListOf()
-        mvInfo.add(MusicVideoInfo("Why Not?","0-snXdhDs1w","lyric_whynot.txt"))
+        mvInfo.add(MusicVideoInfo("Why Not?","0-snXdhDs1w","lyric_whynot.xml"))
         mvInfo.add(MusicVideoInfo("Star","zW-AIXAnLcE"))
         mvInfo.add(MusicVideoInfo("Heart Attack","BVVfMFS3mgc"))
         mvInfo.add(MusicVideoInfo("Egoist","UkY8HvgvBJ8"))

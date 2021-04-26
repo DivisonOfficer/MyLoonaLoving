@@ -11,4 +11,5 @@ class MusicVideoInfo(mvideoName:String,myoutubeCode:String,mlyricPath:String="")
         youtubeCode=myoutubeCode
         lyricPath = mlyricPath
     }
+
 }

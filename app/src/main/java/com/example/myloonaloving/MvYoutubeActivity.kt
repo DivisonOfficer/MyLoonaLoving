@@ -17,38 +17,60 @@ import com.google.android.youtube.player.YouTubePlayerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.InputStreamReader
 import java.lang.IllegalStateException
 import java.lang.Thread.sleep
 
-class MvYoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
-    protected inline fun <reified T : ViewDataBinding> binding(resId: Int) : Lazy<T> =
-        lazy{ DataBindingUtil.setContentView<T>(this, resId)}
-    val bind=binding<ActivityMvYoutubeBinding>(R.layout.activity_mv_youtube)
+class MvYoutubeActivity : BaseActivity() {
+
+    val bind by binding<ActivityMvYoutubeBinding>(R.layout.activity_mv_youtube)
+    lateinit var mAdapter : ShowLylicAdapter
+    var lyricPath = ""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_mv_youtube)
         YOUTUBE_VIDEO_ID=intent.getStringExtra("YouTubeID")!!
-        var lyricPath = intent.getStringExtra("LylicPath")!!
+        lyricPath = intent.getStringExtra("LylicPath")!!
+
         if(lyricPath!="")
         {
+
             val lyricInfo = LyricInfo("WhyNot",lyricPath)
+            InputStreamReader(resources.assets.open(lyricPath)).forEachLine{
+                var ctime= it.substring(1,3).toInt()*60000 + it.substring(4,6).toInt()*1000+it.substring(7,9).toInt()*10
+                lyricInfo.lyricTime.add(ctime)
+                lyricInfo.lyricLine.add(it.substring(10,))
+            }
+            Log.d("LyricLinecnt","${lyricInfo.lyricLine.size}")
 
             val review :RecyclerView = findViewById(R.id.lylic_recycler_view)
-            review.adapter= ShowLylicAdapter().apply{
-                this.lylicdata=lyricInfo
-                this.lylicLine.addAll(lyricInfo.lyricLine)
-                this.lylicTime.addAll(lyricInfo.lyricTime)
-                notifyDataSetChanged()
+            mAdapter = ShowLylicAdapter(temp=
+            {
+
             }
+            ).apply{
+                this.lylicdata=lyricInfo
+                this.lylicLine=lyricInfo.lyricLine
+                this.lylicTime=lyricInfo.lyricTime
+
+                bind.lylicRecyclerView.adapter=this
+                Log.d("MyYoutubeActivity","AfterGenerateAdapter ${this.itemCount}")
+               notifyDataSetChanged()
+            }
+
         }
-        setContentView(R.layout.activity_mv_youtube)
-        val playerView : YouTubePlayerView = findViewById(R.id.mv_youtube_player)
-        playerView.initialize(getString(R.string.GoogleApiKey),this)
+
+        Log.d("Sibale","${bind.lylicRecyclerView.adapter!!.itemCount}")
+
+      //  val playerView : YouTubePlayerView = findViewById(R.id.mv_youtube_player)
+       // playerView.initialize(getString(R.string.GoogleApiKey),this)
 
 
     }
     var YOUTUBE_VIDEO_ID =""
-    override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?,
+ /*   override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?,
                                          wasRestored: Boolean) {
         Log.d("MyYoutubeActivity", "onInitializationSuccess: provider is ${provider?.javaClass}")
         Log.d("MyYoutubeActivity", "onInitializationSuccess: youTubePlayer is ${youTubePlayer?.javaClass}")
@@ -99,10 +121,10 @@ class MvYoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
         }
 
         override fun onPlaying() {
+            if(lyricPath!="") mAdapter.notifyDataSetChanged()
             Toast.makeText(this@MvYoutubeActivity, "Good, video is playing ok", Toast.LENGTH_SHORT).show()
 
         }
-
 
         override fun onStopped() {
             Toast.makeText(this@MvYoutubeActivity, "Video has stopped", Toast.LENGTH_SHORT).show()
@@ -111,5 +133,5 @@ class MvYoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
         override fun onPaused() {
             Toast.makeText(this@MvYoutubeActivity, "Video has paused", Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 }

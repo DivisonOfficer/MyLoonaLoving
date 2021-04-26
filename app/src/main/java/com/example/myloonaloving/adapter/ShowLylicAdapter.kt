@@ -27,17 +27,12 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
 import java.net.URL
 
-class ShowLylicAdapter() : RecyclerView.Adapter<ShowLylicAdapter.ViewHolder>(){
+class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<ShowLylicAdapter.ViewHolder>(){
     lateinit var lylicdata : LyricInfo
-    val lylicLine : MutableList<String> = mutableListOf()
-    val lylicTime : MutableList<Int> = mutableListOf()
+    var lylicLine : MutableList<String> = mutableListOf()
+    var lylicTime : MutableList<Int> = mutableListOf()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        CoroutineScope(Dispatchers.IO).run {
-           // Log.d(                "MyListAdapter",                "${"https://i.ytimg.com/vi/" + mvinfos[position].youtubeCode + "/hq720.jpg"} loading"            )
-
-            holder.bind(lylicLine[position])
-        }
-
+        holder.bind(lylicLine[position],position)
     }
 
     override fun getItemCount(): Int = lylicLine.size
@@ -46,8 +41,9 @@ class ShowLylicAdapter() : RecyclerView.Adapter<ShowLylicAdapter.ViewHolder>(){
     inner class ViewHolder(private val binding: ItemLyricLineBinding, val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(src: String) {
+        fun bind(src: String,position : Int) {
             var str=src
+            Log.d("Onbinding",src)
             MEMBER_NAME.forEach{
                 if(src.contains(it))
                 {
@@ -62,25 +58,18 @@ class ShowLylicAdapter() : RecyclerView.Adapter<ShowLylicAdapter.ViewHolder>(){
 
         }
     }
-    fun add(info:MusicVideoInfo, position:Int){
-        notifyItemInserted(position)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
+        Log.d("initiate","viewholder")
+        return ViewHolder(
+                DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_lyric_line,
+                    parent,
+                    false
+                ), parent.context
+            )
+
     }
-    fun remove(position : Int)
-    {
-        notifyItemRemoved(position)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-
-        ViewHolder(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_lyric_line,
-                parent,
-                false
-            ), parent.context
-        )
-
 
 
 }
