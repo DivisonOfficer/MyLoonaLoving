@@ -27,6 +27,9 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
 import java.net.URL
 
+
+
+val SPECIAL_LETTER="()<>[]"
 class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<ShowLylicAdapter.ViewHolder>(){
     lateinit var lylicdata : LyricInfo
     var lylicLine : MutableList<String> = mutableListOf()
@@ -42,16 +45,20 @@ class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<S
 
 
         fun bind(src: String,position : Int) {
+            binding.singerImage.visibility=View.GONE
             var str=src
             Log.d("Onbinding",src)
             MEMBER_NAME.forEach{
                 if(src.contains(it))
                 {
                     binding.singerImage.visibility=View.VISIBLE
-                    str= src.toMutableList().remove(it.toMutableList()).toString()
-                    str = src.toMutableList().removeAll(listOf('(',')','[',']')).toString()
+                    var sf=it
+                   str = str.filterNot{sf.indexOf(it) > -1}
+                    str = str.filterNot{ SPECIAL_LETTER.indexOf(it) > -1}
+
 
                 }
+                Log.d("ShowLylicAdapter",str)
                 binding.textLyricLin.text=str
             }
 
@@ -59,7 +66,7 @@ class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<S
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
-        Log.d("initiate","viewholder")
+      //  Log.d("initiate","viewholder")
         return ViewHolder(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
