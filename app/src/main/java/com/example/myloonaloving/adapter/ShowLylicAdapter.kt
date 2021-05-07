@@ -55,7 +55,7 @@ class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<S
             binding.groupImageCard.visibility=View.GONE
             var str=src
 
-            Log.d("Onbinding",src)
+        //    Log.d("Onbinding",src)
             MEMBER_NAME.forEach{
                 if(src.contains("(${it})"))
                 {
@@ -71,7 +71,7 @@ class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<S
                         binding.groupImageCard.visibility=View.VISIBLE
 
                         binding.singerImageCard.visibility=View.GONE
-                        Log.d("Showlilic",sf)
+                   //     Log.d("Showlilic",sf)
                     }
                     else{
                         binding.singerImageCard.visibility=View.VISIBLE
@@ -83,7 +83,7 @@ class ShowLylicAdapter(val temp : (id : String)-> Unit) : RecyclerView.Adapter<S
             }
 
 
-            Log.d("ShowLylicAdapter",str)
+       //     Log.d("ShowLylicAdapter",str)
             binding.textLyricLin.text=str
             if(lylicColor[position]==context.getColor(R.color.black)){
                 binding.textLyricLin.setTextColor(context.getColor(R.color.white))

@@ -28,6 +28,7 @@ class MvYoutubeActivity : BaseActivity() {
     val bind by binding<ActivityMvYoutubeBinding>(R.layout.activity_mv_youtube)
     lateinit var mAdapter : ShowLylicAdapter
     var lyricPath = ""
+    var onLyricScroll = 0
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -72,8 +73,10 @@ class MvYoutubeActivity : BaseActivity() {
 
 
 
-        Log.d("Sibale","${bind.lylicRecyclerView.adapter!!.itemCount}")
+        bind.lylicRecyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
 
+            onLyricScroll=50
+        }
       //  val playerView : YouTubePlayerView = findViewById(R.id.mv_youtube_player)
        // playerView.initialize(getString(R.string.GoogleApiKey),this)
         var playTime=0
@@ -82,20 +85,29 @@ class MvYoutubeActivity : BaseActivity() {
                 try {
                     playTime = bind.youTubePlayerView.getCurrentPlayTime()!!
 
+
                     if (playTime > 0) {
-                        var i = 0;
-                        for (i in 0..mAdapter.itemCount - 1) {
-                            Log.d("time on ${mAdapter.lylicTime[i]}",mAdapter.lylicLine[i])
-                            if (playTime < mAdapter.lylicTime[i]) break
+                        if(onLyricScroll==0) {
+                            var line = 0
+                            for (i in 0..mAdapter.itemCount - 1) {
+                                line = i
+                                //    Log.d("time on ${mAdapter.lylicTime[i]}",mAdapter.lylicLine[i])
+                                if (playTime < mAdapter.lylicTime[i]) break
+                            }
+                            runOnUiThread {
+                                bind.lylicRecyclerView.scrollToPosition(line)
+                            }
+                            Log.d("Playing On", "${playTime} / ${line}th line")
                         }
-                        runOnUiThread {
-                            bind.lylicRecyclerView.scrollToPosition(i)
-                        }
+                        else onLyricScroll--
                     }
 
-                    Log.d("Playing On", "${playTime}")
+
                 } catch (e: NullPointerException) {
                     Log.d("YouTubePlayer", "Null")
+                }
+                catch(e:IllegalStateException){
+                    finish()
                 }
 
                 sleep(50)
