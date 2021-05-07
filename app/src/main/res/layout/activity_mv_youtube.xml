@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".MvYoutubeActivity">
 
-        <kr.co.prnd.YouTubePlayerView
+        <com.example.myloonaloving.MyYotubePlayerView
             android:id="@+id/you_tube_player_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,10 +42,11 @@
             android:id="@+id/lylic_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/video_current_time" />
 
 

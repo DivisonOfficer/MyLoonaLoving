@@ -12,4 +12,17 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="deep_pink">#ed0090</color>
+    <color name="yellow">#fdcc03</color>
+    <color name="green">#00a652</color>
+    <color name="orange">#f37020</color>
+    <color name="light_pink">#f5a0b3</color>
+    <color name="red">#ef1841</color>
+    <color name="blue">#1924a7</color>
+    <color name="purple">#5a2b92</color>
+    <color name="vurgundy">#7b0134</color>
+    <color name="peach">#f6917d</color>
+    <color name="edengreen">#37bb9d</color>
+    <color name="silverstar">#48464a</color>
 </resources>

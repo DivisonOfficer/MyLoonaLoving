@@ -9,6 +9,7 @@ class LyricInfo(val name:String ,val location : String) {
     var cnt=0
     var lyricLine : MutableList<String> = mutableListOf()
     var lyricTime : MutableList<Int> = mutableListOf()
+    var timeAdjust=-1
     init{
 
       //  val assetManager = Resource.assets
