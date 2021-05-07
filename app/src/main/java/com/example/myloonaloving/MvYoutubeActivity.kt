@@ -32,6 +32,7 @@ class MvYoutubeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mv_youtube)
         YOUTUBE_VIDEO_ID=intent.getStringExtra("YouTubeID")!!
+        bind.youTubePlayerView.play(YOUTUBE_VIDEO_ID)
         lyricPath = intent.getStringExtra("LylicPath")!!
 
         if(lyricPath!="")
