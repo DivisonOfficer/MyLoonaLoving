@@ -64,6 +64,9 @@ class MainActivity : BaseActivity() {
             textviewAlbum.translationY=-textviewAlbum.measuredHeight/2.toFloat()
             textviewSongs.translationY=-textviewSongs.measuredHeight/2.toFloat()
 
+            btGoSongs.setOnClickListener {
+                startActivity(Intent(this@MainActivity,TechLab::class.java))
+            }
 
         }
         CoroutineScope(Dispatchers.IO).launch {

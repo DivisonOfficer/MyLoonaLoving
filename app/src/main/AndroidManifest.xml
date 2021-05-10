@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MyLoonaLoving">
-        <activity android:name=".MvYoutubeActivity"></activity>
-        <activity
-            android:name=".MvListActivity"
-            ></activity>
+        <activity android:name=".TechLab"></activity>
+        <activity android:name=".MvYoutubeActivity" />
+        <activity android:name=".MvListActivity" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
